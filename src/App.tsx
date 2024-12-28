@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { read, utils } from 'xlsx'
+import Select from 'react-select'
 import './App.css'
 
 interface PlayerData {
@@ -10,6 +11,11 @@ interface PlayerData {
   Ovr: number
   Pot: number
   [key: string]: string | number
+}
+
+interface PlayerOption {
+  value: string
+  label: string
 }
 
 interface ComparisonPlayer {
@@ -28,8 +34,16 @@ function App() {
   const [data, setData] = useState<PlayerData[]>([])
   const [year1, setYear1] = useState<string>('')
   const [year2, setYear2] = useState<string>('')
-  const [searchPlayer, setSearchPlayer] = useState<string>('')
+  const [selectedPlayer, setSelectedPlayer] = useState<PlayerOption | null>(null)
   const [sortConfig, setSortConfig] = useState<{key: string, direction: 'asc' | 'desc'} | null>(null)
+
+  const playerOptions = useMemo(() => {
+    const uniqueNames = Array.from(new Set(data.map(player => player.Name)))
+    return uniqueNames.map(name => ({
+      value: name,
+      label: name
+    }))
+  }, [data])
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
@@ -78,9 +92,10 @@ function App() {
       })) as ComparisonPlayer[]
   }
 
-  const getPlayerHistory = (playerName: string) => {
+  const getPlayerHistory = (playerName: string | null) => {
+    if (!playerName) return []
     return data
-      .filter(player => player.Name.toLowerCase().includes(playerName.toLowerCase()))
+      .filter(player => player.Name === playerName)
       .sort((a, b) => a.Season - b.Season)
   }
 
@@ -170,31 +185,34 @@ function App() {
         </div>
 
         <div className="player-search">
-          <input
-            type="text"
+          <Select
+            value={selectedPlayer}
+            onChange={(option) => setSelectedPlayer(option)}
+            options={playerOptions}
+            className="select-input"
             placeholder="Search player..."
-            value={searchPlayer}
-            onChange={(e) => setSearchPlayer(e.target.value)}
-            className="search-input"
+            isClearable
           />
-          <table className="player-history">
-            <thead>
-              <tr>
-                <th>Year</th>
-                <th>Overall</th>
-                <th>Potential</th>
-              </tr>
-            </thead>
-            <tbody>
-              {getPlayerHistory(searchPlayer).map((player, idx) => (
-                <tr key={idx}>
-                  <td>{player.Season}</td>
-                  <td>{player.Ovr}</td>
-                  <td>{player.Pot}</td>
+          {selectedPlayer && (
+            <table className="player-history">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Overall</th>
+                  <th>Potential</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {getPlayerHistory(selectedPlayer.value).map((player, idx) => (
+                  <tr key={idx}>
+                    <td>{player.Season}</td>
+                    <td>{player.Ovr}</td>
+                    <td>{player.Pot}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>

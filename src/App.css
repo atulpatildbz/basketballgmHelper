@@ -71,15 +71,39 @@ tr:hover {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.search-input {
-  width: 100%;
-  padding: 0.5rem;
+.select-input {
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 .player-history {
   max-height: 400px;
   overflow-y: auto;
+}
+
+/* React Select custom styles */
+.select-input .select__control {
+  border-color: #ccc;
+  box-shadow: none;
+}
+
+.select-input .select__control:hover {
+  border-color: #999;
+}
+
+.select-input .select__control--is-focused {
+  border-color: #2684ff;
+  box-shadow: 0 0 0 1px #2684ff;
+}
+
+.select-input .select__menu {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+}
+
+.select-input .select__option:hover {
+  background-color: #f8f8f8;
+}
+
+.select-input .select__option--is-selected {
+  background-color: #2684ff;
 } 
