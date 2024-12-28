@@ -125,6 +125,19 @@ function App() {
     setSortConfig({ key, direction })
   }
 
+  const getPlayerRatingClass = (overall: number) => {
+    if (overall > 70) return 'elite-player'
+    if (overall >= 60) return 'great-player'
+    if (overall >= 50) return 'good-player'
+    if (overall >= 40) return 'average-player'
+    return 'below-average-player'
+  }
+
+  const handlePlayerClick = (playerName: string) => {
+    const option = { value: playerName, label: playerName }
+    setSelectedPlayer(option)
+  }
+
   return (
     <div className="container">
       <div className="controls">
@@ -169,8 +182,15 @@ function App() {
             </thead>
             <tbody>
               {sortedPlayers().map((player, idx) => (
-                <tr key={idx}>
-                  <td>{player.Name}</td>
+                <tr key={idx} className={getPlayerRatingClass(player.toOverall)}>
+                  <td>
+                    <span 
+                      className="player-name"
+                      onClick={() => handlePlayerClick(player.Name)}
+                    >
+                      {player.Name}
+                    </span>
+                  </td>
                   <td>{player.Position}</td>
                   <td>{player.overallDiff.toFixed(1)}</td>
                   <td>{player.potentialDiff.toFixed(1)}</td>
@@ -190,6 +210,7 @@ function App() {
             onChange={(option) => setSelectedPlayer(option)}
             options={playerOptions}
             className="select-input"
+            classNamePrefix="select"
             placeholder="Search player..."
             isClearable
           />
@@ -204,7 +225,7 @@ function App() {
               </thead>
               <tbody>
                 {getPlayerHistory(selectedPlayer.value).map((player, idx) => (
-                  <tr key={idx}>
+                  <tr key={idx} className={getPlayerRatingClass(player.Ovr)}>
                     <td>{player.Season}</td>
                     <td>{player.Ovr}</td>
                     <td>{player.Pot}</td>
