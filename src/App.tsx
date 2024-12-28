@@ -138,6 +138,11 @@ function App() {
     setSelectedPlayer(option)
   }
 
+  const getSortClass = (key: string) => {
+    if (!sortConfig || sortConfig.key !== key) return ''
+    return sortConfig.direction === 'asc' ? 'sort-asc' : 'sort-desc'
+  }
+
   return (
     <div className="container">
       <div className="controls">
@@ -170,14 +175,14 @@ function App() {
           <table>
             <thead>
               <tr>
-                <th onClick={() => requestSort('Name')}>Name</th>
-                <th onClick={() => requestSort('Position')}>Position</th>
-                <th onClick={() => requestSort('overallDiff')}>Overall diff</th>
-                <th onClick={() => requestSort('potentialDiff')}>Potential diff</th>
-                <th onClick={() => requestSort('fromOverall')}>From overall</th>
-                <th onClick={() => requestSort('toOverall')}>To overall</th>
-                <th onClick={() => requestSort('fromPotential')}>From potential</th>
-                <th onClick={() => requestSort('toPotential')}>To potential</th>
+                <th onClick={() => requestSort('Name')} className={getSortClass('Name')}>Name</th>
+                <th onClick={() => requestSort('Position')} className={getSortClass('Position')}>Position</th>
+                <th onClick={() => requestSort('overallDiff')} className={getSortClass('overallDiff')}>Overall diff</th>
+                <th onClick={() => requestSort('potentialDiff')} className={getSortClass('potentialDiff')}>Potential diff</th>
+                <th onClick={() => requestSort('fromOverall')} className={getSortClass('fromOverall')}>From overall</th>
+                <th onClick={() => requestSort('toOverall')} className={getSortClass('toOverall')}>To overall</th>
+                <th onClick={() => requestSort('fromPotential')} className={getSortClass('fromPotential')}>From potential</th>
+                <th onClick={() => requestSort('toPotential')} className={getSortClass('toPotential')}>To potential</th>
               </tr>
             </thead>
             <tbody>

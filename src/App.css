@@ -101,10 +101,41 @@ th {
   border-bottom: 1px solid var(--border-dark);
   transition: background-color 0.2s;
   white-space: nowrap;
+  position: relative;
 }
 
 th:hover {
   background: var(--hover-dark);
+}
+
+/* Sort indicators */
+th.sort-asc::after,
+th.sort-desc::after {
+  content: '';
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+}
+
+th.sort-asc::after {
+  border-bottom: 4px solid var(--text-dim);
+}
+
+th.sort-desc::after {
+  border-top: 4px solid var(--text-dim);
+}
+
+th.sort-asc:hover::after {
+  border-bottom-color: var(--text-light);
+}
+
+th.sort-desc:hover::after {
+  border-top-color: var(--text-light);
 }
 
 td {
@@ -249,17 +280,14 @@ tr:hover {
   background-color: var(--border-dark);
 }
 
-/* Add clickable style for player names */
+/* Simplified player name style */
 .player-name {
   cursor: pointer;
-  color: var(--accent-blue);
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-underline-offset: 4px;
+  color: inherit;
 }
 
 .player-name:hover {
-  text-decoration-style: solid;
+  opacity: 0.8;
 }
 
 /* Scrollbar styling */
