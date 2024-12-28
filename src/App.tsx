@@ -36,6 +36,7 @@ function App() {
   const [year2, setYear2] = useState<string>('')
   const [selectedPlayer, setSelectedPlayer] = useState<PlayerOption | null>(null)
   const [sortConfig, setSortConfig] = useState<{key: string, direction: 'asc' | 'desc'} | null>(null)
+  const [nameFilter, setNameFilter] = useState<string>('')
 
   const playerOptions = useMemo(() => {
     const uniqueNames = Array.from(new Set(data.map(player => player.Name)))
@@ -101,9 +102,19 @@ function App() {
 
   const sortedPlayers = () => {
     const players = getPlayersForComparison()
-    if (!sortConfig) return players
+    let filteredPlayers = players
 
-    return [...players].sort((a, b) => {
+    // Apply name filter
+    if (nameFilter.trim()) {
+      const names = nameFilter.split(',').map(name => name.trim().toLowerCase())
+      filteredPlayers = players.filter(player => 
+        names.some(name => player.Name.toLowerCase().includes(name))
+      )
+    }
+
+    if (!sortConfig) return filteredPlayers
+
+    return [...filteredPlayers].sort((a, b) => {
       const aValue = a[sortConfig.key]
       const bValue = b[sortConfig.key]
       
@@ -172,6 +183,23 @@ function App() {
 
       <div className="content">
         <div className="comparison-table">
+          <div className="filter-container">
+            <input
+              type="text"
+              placeholder="Filter by names (comma-separated)"
+              value={nameFilter}
+              onChange={(e) => setNameFilter(e.target.value)}
+              className="name-filter"
+            />
+            {nameFilter && (
+              <button 
+                onClick={() => setNameFilter('')}
+                className="clear-filter"
+              >
+                Clear
+              </button>
+            )}
+          </div>
           <table>
             <thead>
               <tr>

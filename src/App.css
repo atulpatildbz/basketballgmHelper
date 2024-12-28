@@ -307,4 +307,47 @@ tr:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-dim);
+}
+
+.filter-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.name-filter {
+  flex: 1;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  font-size: var(--font-size-small);
+}
+
+.name-filter:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 1px var(--accent-blue);
+}
+
+.name-filter::placeholder {
+  color: var(--text-dim);
+}
+
+.clear-filter {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  background: var(--bg-dark);
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: var(--font-size-small);
+  transition: all 0.2s;
+}
+
+.clear-filter:hover {
+  background: var(--hover-dark);
+  color: var(--text-light);
+  border-color: var(--text-dim);
 } 
