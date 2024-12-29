@@ -17,11 +17,11 @@ A React-based web application that helps you analyze and compare player statisti
 1. Clone the repository
 2. Install dependencies:
    ```bash
-   npm install
+   bun install
    ```
 3. Run the development server:
    ```bash
-   npm run dev
+   bun run dev
    ```
 
 ## Usage
