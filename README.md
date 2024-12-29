@@ -1,50 +1,43 @@
-# React + TypeScript + Vite
+# Basketball GM Helper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based web application that helps you analyze and compare player statistics across different seasons in Basketball GM. Built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Upload player statistics from Basketball GM exports (CSV/XLSX/XLS)
+- Compare player statistics between two selected seasons
+- Track changes in player Overall ratings and Potential
+- Color-coded player ratings for easy visualization
+- Search and filter players by name
+- Sort by any statistical category
+- View individual player history across seasons
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+## Usage
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1. Click the file input button to upload your Basketball GM export file
+2. Enter the two seasons you want to compare
+3. Use the table to view player progression between the selected seasons
+4. Filter players using the search box
+5. Click on player names to view their complete history
+6. Sort any column by clicking the column header
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Tech Stack
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- React 18
+- TypeScript
+- Vite
+- XLSX for file parsing
+- React Select for search functionality
+- Tailwind CSS for styling
